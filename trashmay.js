@@ -34,24 +34,33 @@ function trashMay(theTrash){
 	{
 		var alttext = String(img.alt).toLowerCase();
 		var imgsrc = String(img.src).toLowerCase();
-    img.datasrc = "";
+    var imgclass = String(img.class).toLowerCase();
 
 			if ((alttext.indexOf(may) != -1) || (imgsrc.indexOf(may) != -1)){
 				var randk = Math.floor(Math.random() * 19) + 1
-        //var randk = 0;
 				img.src = theTrash.trash[randk].file;
+        img.datasrc = img.src;
+        img.height="initial"; //reset height so images aren't stretched
+        img.style.height="auto";
 				if (theTrash.trash[randk].type == 0){
 					img.alt = 'Photo by '+theTrash.trash[randk].Credit+' source '+theTrash.trash[randk].URL+'';
 				};
-		});
-	}
+		};
+    //if the image found is within a picture element, set all sources to trash as well
+    if (img.parentNode.tagName=="PICTURE") {
+      var pictureEl = img.parentNode;
+      var sourceEls = pictureEl.getElementsByTagName("source"), i=0, source;
+      while (source = sourceEls[i++]) {
+        source.srcset = img.src;
+      }
+    }
 
+  };
   //replace "Theresa May" and "Mrs May" with "Trash May"
-  if (document.body.innerHTML.indexOf("Theresa May") !== -1) {
-    document.body.innerHTML = document.body.innerHTML.replace(/Theresa May/g, 'Trash May');
-    document.body.innerHTML = document.body.innerHTML.replace(/Mrs May/g, 'Trash May');
-  }
-
+    if (document.body.innerHTML.indexOf("Theresa May") !== -1) {
+      document.body.innerHTML = document.body.innerHTML.replace(/Theresa May/g, 'Trash May');
+      document.body.innerHTML = document.body.innerHTML.replace(/Mrs May/g, 'Trash May');
+    }
 };
 
 // add listener
