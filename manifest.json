@@ -1,19 +1,22 @@
 {
   "manifest_version": 2,
 
-  "name": "UKItten",
-  "description": "Replaces images of Nigel Farage or UKIP with kittens. Because kittens > UKIP.",
-  "version": "1.0.2",
+  "name": "TrashMay",
+  "description": "Replaces images of Theresa May with pictures of trash. Because Theresa May = Trash May.",
+  "version": "1.0",
 
   "permissions": [
-    "http://www.teaandkittens.co.uk/"
+    "https://postimg.org/"
   ],
-  "icons": { "48": "uk48.png",
-          "128": "uk128.png" },
+  "icons": {
+    "48": "icon48.png",
+          "128": "icon128.png" },
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
-      "js": ["defarage.js"]
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "js": ["trashmay.js"],
+      "run_at": "document_end"
     }
   ]
 }
